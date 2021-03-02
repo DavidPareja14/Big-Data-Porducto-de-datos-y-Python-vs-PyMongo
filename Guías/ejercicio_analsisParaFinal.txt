@@ -1,0 +1,45 @@
+sudo docker run --rm -it -v /home/ubuntu/repo/quejas_internet.csv:/repo/quejas_internet.csv:rw chalimartines/local-pig
+
+
+sudo docker cp de56a68b8e44:/repo/filtro_quejas ~/repo/filtro_quejas.csv
+
+var empresas = db.Quejas2.distinct('EMPRESA')
+
+for (var i=0; i<9; i+=1){ 
+ db.Quejas2.find({EMPRESA:empresas[i]},{_id:0,NUMERO_QUEJAS:1,EMPRESA:1});
+}
+
+=====================
+var map=function(){
+    emit(this.EMPRESA, this.NUMERO_QUEJAS);
+};
+
+var reduce= function(key, val){
+   return Array.sum(val);
+};
+
+db.Quejas2.mapReduce(map, reduce, {'out':'quejas_empresa'})
+
+===================
+var map=function(){
+    emit(this.TIPOLOGIA, this.NUMERO_QUEJAS);
+};
+
+var reduce= function(key, val){
+   return Array.sum(val);
+};
+
+db.Quejas2.mapReduce(map, reduce, {'out':'quejas_tipo'})
+===================
+var map=function(){
+    if(this.ANNO==2018){
+      emit(this.TRIMESTRE, this.NUMERO_QUEJAS);
+    }
+};
+
+var reduce= function(key, val){
+   return Array.sum(val);
+};
+
+db.Quejas2.mapReduce(map, reduce, {'out':'quejas_2018'})
+

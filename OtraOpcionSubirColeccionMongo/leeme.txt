@@ -1,0 +1,5 @@
+En este directorio está todo con python, es decir, para subir las colecciones a la base de datos mongo
+se usa python, pero esto trae alguno incovenientes, ya que cuando se abre o lee un archivo en python
+este es traido como un string, por lo tanto, al tratar de subir los campos numéricos serán de tipo
+string, por esta razón esta implementación se deja de lado.
+Esto se pude ver en el archivo subriParticionesAMongo.py

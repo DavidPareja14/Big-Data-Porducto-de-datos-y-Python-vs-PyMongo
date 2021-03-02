@@ -1,0 +1,59 @@
+Es fundamental conocer los tipos de los campos,
+esto puede hacer que se adapte mas fácil el modelo. 
+Por ejemplo, pasar mal un tipo en el mapeo y reduccion
+puede ser fatal a la hora de hacer un casteo, cuando
+se toma info de un archivo, es como string, pero si
+se trata de castear un string "0.8" a int, esto dara
+error
+
+Para el procesamiento con python, se debe de verificar
+que los campos vengan sin espacios entre las comas,
+es decir ,ESTADO CIVIL, es válido, pero no 
+,ESTADO CIVIL ,.
+
+Hay mas complejidad a la hora de trabajar con python
+ya que los caracteres especiales aveces no son tra-
+tados como se espera y para solucionarlo, se debe
+saber donde es propicio poner atención, por eso 
+es importante conocer muy bien los datos.
+
+se presentan muchos problemas con la codificacion
+de las cadenas en python2 debido a que todo esta
+con ascii, en python 3 al parecer sería más fácil
+por que usa cidificación utf-8
+
+Es más fácil hacer el procesamiento con mongo
+que hacerlo a pedal con python
+
+Para el Género o SEXO, no se obtiene los mismos agru-
+pamientos, es decir, si hago un mapeo y reduccion
+con Mongo con respecto a un departamento, salen
+dos campos que son femenio y masculino, pero 
+con los archivos particionados, al hacer el mapeo
+y reducción con el segundo archivo mas grande
+Registros18000...csv salen campos adicionales
+que mongo no considera, sale un agrupamiento 17
+y otro IV, esto perjudica el procesamiento a la
+hora de escribir resultados de la reduccion a un
+archivo. Esto lo puedo ver en un comentario de
+mapPython.py
+
+Para trabajar en python siguen habiendo problemas,
+cuando se manda el mapeo con un -, resulta que
+hay campos con guiones (---), al hacer el split
+se generan varias valores y esto dificulta el 
+procesamiento.
+
+CON RESPECTO A DELITO_VIOLENCIA_INTRAFAMILIAR
+
+En la columna Departamentos, se ha encontrado que
+hay campos vacíos, es decir "".
+En la columna DIA también hay campos "".
+En la columna EDAD hay campos NO REPORTADO, NO REPORTADO1
+Y "".
+En la columna MUNICIPIO hay un campo ""
+
+al parecer todas las columnas tiene un campo ""
+
+Campos con los que trabajaré:
+DEPARTAMENTO,MUNICIPIO,DIA,BARRIO,ZONA,EDAD,SEXO,ESTADO-CIVIL,ESCOLARIDAD
